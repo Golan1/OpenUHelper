@@ -1,0 +1,21 @@
+.heara {
+	padding: .2em;
+	cursor: help;
+}
+
+.heara div {
+	position: absolute;
+}
+
+.heara div p {
+	position: relative;
+	top: 1em;
+	right: 50%;
+	display: none;
+	background: #bdf;
+	border: 1px solid #69c;
+	padding: .5em;
+	max-width: 300px;
+	-webkit-border-radius: 4px;
+	-webkit-box-shadow: 2px 2px 3px #000;
+}

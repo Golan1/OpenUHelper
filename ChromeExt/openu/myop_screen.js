@@ -81,5 +81,6 @@ function fixMain() {
 }
 
 $(function() {
-	fixMain();
+	if (main.document.readyState == 'complete') fixMain();
+	$('frame[name="main"]')[0].onload = fixMain;
 });

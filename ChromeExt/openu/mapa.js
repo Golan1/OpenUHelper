@@ -14,13 +14,15 @@ function fixLower() {
 	$('td[width="90"],td[width="40"]', f).width('14%');
 	$('table', f).width('auto').css('margin','auto').attr('align','');
 	$('table[width="660"]', f).css('min-width','770px');
-	$('table table:has(table):first', f).prepend($('<thead/>').prepend(
+	var frm  = $('form', f).css('margin-bottom','1.5em');
+	$('table table:has(table):first', f).wrap(frm).prepend($('<thead/>').prepend(
 			$('table table:has(table):first tr:first', f).remove()))
 		.css('position','absolute').css('top','0em').css('width','660px')
 		.css('background','#eee').css('border','2px outset #111').hover(
 			function(){ $(this).find('tbody').fadeIn(); },
 			function(){ $(this).find('tbody').fadeOut(); }
-	).after('\xa0');
+	);
+	frm.remove();
 	$('a[name] + table,td[valign="top"] > table', f).width('100%');
 	$('td[valign="top"] > table', f).css('background','#bdf').css('border-bottom','1px dotted #9cf')
 		.css('margin-bottom','.25em');
@@ -31,9 +33,9 @@ function fixLower() {
 	$('td[width="30"]:contains("יחידת לימוד מומלצת")', f).remove();
 	$('b:contains("מספר"):contains("שבוע")', f).replaceWith('<b>שבוע</b>');
 	$('tr[bgcolor="#E6F6FF"] > td:first-child', f).each(function() {
-	    var t = $(this);
-	    var n = t.next();
-	    n.html(t.html() + '<hr/>' + n.html()).width('2%');
+	    var t = $(this).wrapInner('<div/>');
+	    var n = t.next().wrapInner('<div/>');
+	    n.prepend(t.html() + '&nbsp;').width('2%');
 	}).remove();
 	$('td[width="50"]', f).each(function() {
 	    var t = $(this);
@@ -42,7 +44,7 @@ function fixLower() {
 	}).remove();
 	$('input[name="P_in_kod_peilut"]', f).each(function() {
 		var cb = $(this);
-		var id = 'kod' + cb.attr('value');
+		var id = 'kod_' + cb.attr('value');
 	    cb.attr('id', id).parent().wrapInner('<label for="' + id + '" />');
 	});
 	$('.popup + a[href="#"]', f).css('display','block').each(function(){

@@ -1,6 +1,6 @@
 {
 	"name": "OpenU Helper",
-	"version": "0.9.3",
+	"version": "0.9.4",
 	"manifest_version": 2,
 	"description": "Little fixes for openu.ac.il",
 	"icons": {
@@ -22,12 +22,9 @@
 			"js": ["jquery.js", "mapa.js"]
 		},
 		{
-			"matches": [
-				"https://sheilta.apps.openu.ac.il/pls/dmyopt2/matalat_macshev.answers*",
-				"https://sheilta.apps.openu.ac.il/pls/dmyopt2/course_info_2.ziunmesichim*",
-				"https://sheilta.apps.openu.ac.il/pls/dmyopt2/course_info_2.ZIUNMATALA*"
-			],
-			"js": ["jquery.js"/*, "course_info.js"*/]
+			"matches": ["*://*.openu.ac.il/*"],
+			"css": ["all_pages.css"],
+			"js": ["jquery.js", "all_pages.js"]
 		}
 	]
 }
