@@ -1,29 +1,50 @@
+function semester(s) {
+	return s.trim().replace('א','a').replace('ב','b').replace('ג','c');
+}
+
 function fixCourses(f) {
 	$('td:contains("פירוט"):not(:has(td)):first', f)[0].remove();
 	$('a[href^="course_info.courseinfo"]', f).css('display','block').each(function() {
-	    var a = $(this);
+	    var a = $(this).attr('title','לפרטים נוספים');
 	    var t1 = a.parent();
 	    var t2 = t1.next().next().next().next().next().next();
 		t2.wrapInner(a);
 		t1.remove();
+		t1 = t2.next();
+		t2 = t1.next();
+		var h = 'http://telem.openu.ac.il/courses/' + semester(t2.text()) +
+			'/c' + t1.text().trim();
+		t1.wrapInner($('<a/>').attr('title','לאתר הקורס').attr('href', h)
+				.attr('target', 'new_window' + t1.text().trim()));
 	});
 }
 
 function fixNews(f) {
 	$('th:contains("פירוט")', f).remove();
-	$('a[href="#chadash"]', f).css('display','block').each(function() {
+	$('th:contains("תאור ההודעה")', f).css('width','420px');
+	$('td:contains("הצג שוב")', f).css('width','50px');
+	$('td:not(:has(td)):has(a[href="#chadash"],img[src$="smsgreen2.gif"])', f).each(function() {
+	    var t1 = $(this);
+	    var t2 = t1.prev().prev();
+	    t1.find('a[href="#chadash"]').css('display','block').each(function(){
+	    	t2.wrapInner($(this));
+	    }).remove();
+		t2.prepend(t1.children());
+	}).remove();
+	$('td[width="30"]:contains("פירוט")', f).remove();
+	$('a[href="#pniya"]', f).css('display','block').each(function() {
 	    var a = $(this);
 	    var t1 = a.parent().parent();
-	    var t2 = /*t1.parent().find('td:eq(1)');*/t1.prev().prev();
+	    var t2 = t1.parent().find('td:eq(1)');
 		t2.wrapInner(a);
 		t1.remove();
 	});
 	$('input[type="CHECKBOX"]', f).css('height','100%').css('min-height','1em')
-		.css('width','100%').css('cursor', 'pointer');
+		.css('width','100%').css('width','50px').css('cursor', 'pointer');
 
 	$('table:contains("ציונים"):last tr', f).slice(2).each(function() {
 		var r = $(this),
-			s = r.find('font:eq(1)').text().trim().replace('א','a').replace('ב','b').replace('ג','c'),
+			s = semester(r.find('font:eq(1)').text()),
 			c = r.find('font:eq(2)').text().trim(),
 			m = r.find('font:eq(4)').text().trim(),
 			t = m.charAt(0) == '0',
@@ -46,12 +67,9 @@ function fixNews(f) {
 				}).remove();
 		}).prependTo(r.find('td:eq(5)').css('position','relative'));
 		r.hover(function() { d.fadeIn(); }, function() { d.fadeOut(); });
-	});		
-		//+'&p_time=213913041113
+	});
+	$('td:not(:has(*))', f).filter(function(){return $(this).text().trim().length==0;}).remove();
 }
-//https://sheilta.apps.openu.ac.il/pls/dmyopt2/course_info_2.ZIUNMATALA?p_kurs=20476&p_semester=2012c&p_time=111858041213&p_MERKAZ_LIMUD=630&p_KVUTZAT_LIMUD=60&P_KOD_PEILUT_KURS=01#
-//https://sheilta.apps.openu.ac.il/pls/dmyopt2/matalat_macshev.answers?p_kurs=20476&p_semester=2012c&p_semester_hagasha=2012c&p_kod_peilut_kurs=01&p_mis_matala=02&p_time=111858041213
-
 
 function fixMain() {
 	var f = main.document;
@@ -62,11 +80,6 @@ function fixMain() {
 	}	
 }
 
-function fix() {
-	if (main.document.readyState == 'complete') fixMain();
-	$('frame[name="main"]')[0].onload = fixMain;
-}
-
 $(function() {
-	fix();	
+	fixMain();
 });
