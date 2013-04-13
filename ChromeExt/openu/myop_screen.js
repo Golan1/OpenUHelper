@@ -67,7 +67,6 @@ function fix() {
 	$('frame[name="main"]')[0].onload = fixMain;
 }
 
-if (document.readyState == 'complete') fix();
-else document.onreadystatechange = function() {
-	if (document.readyState == 'complete') fix();
-};
+$(function() {
+	fix();	
+});

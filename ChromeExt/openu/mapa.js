@@ -46,7 +46,7 @@ function fixMapa() {
 	fixUpper();
 }
 
-if (document.readyState == 'complete') fixMapa();
-else document.onreadystatechange = function() {
-	if (document.readyState == 'complete') fixMapa();
-};
+
+$(function() {
+	fixMapa();
+});
