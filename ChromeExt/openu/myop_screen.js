@@ -5,9 +5,9 @@ function semester(s) {
 function fixCourses(f) {
 	$('td:contains("פירוט"):not(:has(td)):first', f)[0].remove();
 	$('a[href^="course_info.courseinfo"]', f).css('display','block').each(function() {
-	    var a = $(this).attr('title','לפרטים נוספים');
-	    var t1 = a.parent();
-	    var t2 = t1.next().next().next().next().next().next();
+		var a = $(this).attr('title','לפרטים נוספים');
+		var t1 = a.parent();
+		var t2 = t1.next().next().next().next().next().next();
 		t2.wrapInner(a);
 		t1.remove();
 		t1 = t2.next();
@@ -24,18 +24,18 @@ function fixNews(f) {
 	$('th:contains("תאור ההודעה")', f).css('width','420px');
 	$('td:contains("הצג שוב")', f).css('width','50px');
 	$('td:not(:has(td)):has(a[href="#chadash"],img[src$="smsgreen2.gif"])', f).each(function() {
-	    var t1 = $(this);
-	    var t2 = t1.prev().prev();
-	    t1.find('a[href="#chadash"]').css('display','block').each(function(){
-	    	t2.wrapInner($(this));
-	    }).remove();
+		var t1 = $(this);
+		var t2 = t1.prev().prev();
+		t1.find('a[href="#chadash"]').css('display','block').each(function(){
+			t2.wrapInner($(this));
+		}).remove();
 		t2.prepend(t1.children());
 	}).remove();
 	$('td[width="30"]:contains("פירוט")', f).remove();
 	$('a[href="#pniya"]', f).css('display','block').each(function() {
-	    var a = $(this);
-	    var t1 = a.parent().parent();
-	    var t2 = t1.parent().find('td:eq(1)');
+		var a = $(this);
+		var t1 = a.parent().parent();
+		var t2 = t1.parent().find('td:eq(1)');
 		t2.wrapInner(a);
 		t1.remove();
 	});
@@ -77,7 +77,7 @@ function fixMain() {
 	case 'myop.new_screen': return fixNews(f);
 	case 'course_info.courses': return fixCourses(f);
 	default:
-	}	
+	}
 }
 
 $(function() {
