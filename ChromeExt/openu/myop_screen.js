@@ -12,8 +12,7 @@ function fixCourses(f) {
 		t1.remove();
 		t1 = t2.next();
 		t2 = t1.next();
-		var h = 'http://telem.openu.ac.il/courses/' + semester(t2.text()) +
-			'/c' + t1.text().trim();
+		var h = 'http://opal.openu.ac.il/ouil/course.php?course=c' +t1.text().trim() +"&semeter=" +semester(t2.text());
 		t1.wrapInner($('<a/>').attr('title','לאתר הקורס').attr('href', h)
 				.attr('target', 'new_window' + t1.text().trim()));
 	});
