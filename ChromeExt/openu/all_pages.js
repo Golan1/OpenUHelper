@@ -13,3 +13,11 @@ $(function() {
 			.hover(function() { d.fadeIn(); }, function() { d.fadeOut(); });
 	});
 });
+
+function injectScript(code) {
+
+    var script = document.createElement('script');
+    script.textContent = code;
+    main.document.head.appendChild(script);
+    script.parentNode.removeChild(script);
+}
